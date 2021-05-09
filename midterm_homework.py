@@ -4,21 +4,24 @@
 # @Author : Jerry Liu
 
 import cv2 as cv
-from Image_Process.Retinex import SSR, SSR2
-from Image_Process.clahe import claheWithInterpolation
-from Image_Process.NL_means import nl_meansfilter
+from Retinex import SSR, SSR2
+from clahe import claheWithInterpolation
+from NL_means import nl_meansfilter
 import numpy as np
 from skimage import exposure
 import matplotlib.pyplot as plt
+import os
 
-
-def run_main():
+def run_main(img_dir,img_size =(100,100),is_rgb = True, is_debug = False):
     """
     这是主函数
     """
     # 利用opencv读入图片
-    rgb_img = cv.imread('2.jpg')
-    cv.imshow("truth", rgb_img)
+    rgb_img = cv.imread(img_dir)
+    
+    rgb_img = cv.resize(rgb_img, img_size)
+    if is_debug:
+      cv.imshow("truth", rgb_img)
     # 进行颜色空间转换
     hsv_img = cv.cvtColor(rgb_img, cv.COLOR_BGR2HSV)
     H, S, V = cv.split(hsv_img)
@@ -33,15 +36,28 @@ def run_main():
 
     hsv_img = nl_meansfilter(hsv_img)
     rgb_img = cv.cvtColor(hsv_img, cv.COLOR_HSV2BGR)
-    cv.imshow("result", rgb_img)
-    cv.imshow("result1", hsv_img)
-
-    cv.waitKey()
-    cv.destroyAllWindows()
-
+    if is_debug:
+      cv.imshow("result", rgb_img)
+      cv.imshow("result1", hsv_img)
+      cv.waitKey()
+      cv.destroyAllWindows()
+    
+    if is_rgb:
+      return rgb_img
+    else:
+      return hsv_img 
 
 if __name__ == '__main__':
-  run_main()
+  data_path = "./dataset"
+  res_path = "./result"
+
+  filelist = [i for i in os.listdir(data_path)]
+  for file in filelist:
+      res_img = run_main(data_path + "/" + file)
+      cv.imwrite(res_path + "/" + file, res_img)
+      print("finish :" + file)
+      cv.waitKey()
+
 
 
 

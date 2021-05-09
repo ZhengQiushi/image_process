@@ -49,7 +49,7 @@ def nl_meansfilter(imagearray, h_=10, ds0=2, ds1=5):
     :param imagearray: 输入图像的RGB矩阵
     :return: 去噪后图像的RGB矩阵
     """
-    print("非局部均值降噪算法开始")
+    # print("非局部均值降噪算法开始")
     height, width = imagearray[:, :, 0].shape[:2]  # 获取图像的宽和高
     length0 = height + 2 * ds1  # 对边缘进行扩展之后的高
     length1 = width + 2 * ds1  # 对边缘进行扩展之后的宽
@@ -57,7 +57,7 @@ def nl_meansfilter(imagearray, h_=10, ds0=2, ds1=5):
     d = (2 * ds0 + 1) ** 2
     imagearray_NL = np.zeros(imagearray.shape).astype('uint8')
     for i in range(0, 3):
-        print(i)
+        # print(i)
         paddedimg = np.pad(imagearray[:, :, i], ds0 + ds1 + 1, 'symmetric')
         paddedimg = paddedimg.astype('float64')
         paddedv = np.pad(imagearray[:, :, i], ds1, 'symmetric')
@@ -69,7 +69,7 @@ def nl_meansfilter(imagearray, h_=10, ds0=2, ds1=5):
             for t2 in range(-ds1, ds1 + 1):
                 if t1 == 0 and t2 == 0:
                     continue
-                print(t1, t2)
+                # print(t1, t2)
                 Sd = integralImgSqDiff2(paddedimg, ds1, t1, t2)
                 SqDist2 = Sd[2 * ds0 + 1:-1, 2 * ds0 + 1:-1] + Sd[0:-2 * ds0 - 2, 0:-2 * ds0 - 2] - \
                           Sd[2 * ds0 + 1:-1, 0:-2 * ds0 - 2] - Sd[0:-2 * ds0 - 2, 2 * ds0 + 1:-1]
