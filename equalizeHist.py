@@ -110,13 +110,16 @@ if __name__ == "__main__":
     img = cv.imread("./2.jpg")
     cv.imshow("1.jpg", img)
 
-    rgb3 = color_image_enforce_rgb(img, gama=0.8, des_low=0.10, des_high=0.70)
-    gray3 = cv.cvtColor(rgb3, cv.COLOR_BGR2GRAY)
-    draw(gray3, "222")
+    #rgb3 = color_image_enforce_rgb(img, gama=0.8, des_low=0.10, des_high=0.70)
+    # gray3 = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    # draw(gray3, "222")
 
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    cv.imshow("origianl", gray)
+    draw(gray, "222")
+
     enf = cv.equalizeHist(gray)
-    my_res = myEqualHist(gray)
+    my_res = myEqualHist(gray, True)
 
 
     my_rgb_res = rgbEqualHist(img)

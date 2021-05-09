@@ -1,5 +1,5 @@
-from find_threshold import *
-from travert_hsi_rgb import *
+from Image_Process.find_threshold import *
+from Image_Process.travert_hsi_rgb import *
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2 as cv
@@ -93,7 +93,7 @@ def draw(val, name_):
     plt.show()
 
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     img = cv.imread("./2.jpg")
     cv.imshow("1.jpg", img)
 
@@ -107,4 +107,4 @@ if __name__ == "__main__":
 
     cv.imshow("3.jpg", rgb3)
 
-    cv.waitKey()
+    cv.waitKey()"""

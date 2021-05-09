@@ -71,8 +71,8 @@ def get_best_threshold(img, set_low=0.05, set_high=0.95):
         return thr_low, thr_high
 
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     img = cv.imread("C:/Users/asus/Desktop/1.jpg")
     cv.imshow("1.jpg", img.copy())
-    cv.waitKey()
+    cv.waitKey()"""
 
